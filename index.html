@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objetos con Javascript</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+   
+<header></header>    
+<main>
+    <span id="msg">Adios</span><br>
+    <button class="addBookBtn" id="btn-abrir-modal">+ Agregar Libro</button>
+
+    <dialog id="modal">
+        <form method="dialog" action="submit">
+            
+            <div class="inputs">
+                <span>Agregar nuevo libro:</span><br><br>
+                <label for="titulo">Titulo:</label>
+                <input id="titulo" name="titulo" type="text"><br>
+                <label for="autor">Autor:</label>
+                <input id="autor" name="autor" type="text"><br>
+                <label for="paginas">Nº de Páginas:</label>
+                <input id="paginas" name="paginas" type="number"><br>
+                <label for="leido">Leído:</label>
+                <input id="leido" name="leido" type="checkbox"><br>
+
+            </div><br>
+            
+
+
+           <button id="btn-cerrar-modal">Cancelar</button>            
+            <input id="btn-enviar-datos" type="submit" value="Agregar">
+        </form>
+
+    </dialog>
+    
+    <div class="cards-container" id="cards-container">
+
+    </div>
+
+</main>
+<footer></footer>
+
+
+
+
+
+
+
+    <script src="app.js"></script>
+</body>
+</html>
