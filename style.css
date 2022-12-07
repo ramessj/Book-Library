@@ -1,0 +1,14 @@
+.tdBtnBorrar{
+    cursor: pointer;
+}
+
+.tdBtnBorrar:hover > *{
+    transform: scale(1.15);
+}
+
+.fa-trash:hover {
+    cursor: pointer;
+}
+
+
+

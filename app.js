@@ -25,10 +25,14 @@ function Book (title, author, pages, read) {
     this.author = author;
     this.pages = pages;
     this.read = read;
-    this.readText = " not read yet";  
-    if (read){
-        this.readText = " already read"
+    this.readText = "No"; 
+    if (this.read){
+        this.readText = "Si"
     };
+   
+
+    
+
     this.info = ()=>{
         return (this.title + " by " + this.author + ", " + this.pages + " pages," + this.readText )
     };
@@ -36,23 +40,63 @@ function Book (title, author, pages, read) {
 
 
 
+
+
+
+
+let isValidBook =(book)=>{
+    if(book.title == `` || book.autor == `` || book.pages == 0){
+        
+    }
+    else{
+        myLibrary.push(book);
+        fillGrid();
+
+        tituloInput.value = '';
+        autorInput.value = '';
+        paginasInput.value = '';
+        leidoInput.checked = '';
+    }
+
+}
+
 let addBookToLibrary = (e)=> {
     console.log(e)
 
-   let title= e.path[1][0].value;
-    let autor = e.path[1][1].value
-    let pages = e.path[1][2].value
-    let read = e.path[1][3].value
+    e.preventDefault();
 
 
 
+
+
+
+   
+
+   let title= tituloInput.value;
+   let autor= autorInput.value;
+   let pages= Number(paginasInput.value);
+   let read= leidoInput.checked;
+
+
+
+
+
+    if(title == `` || autorInput == `` || paginasInput == 0){
+
+    }
 
    let book = new Book(title, autor, pages, read);
-   myLibrary.push(book);
+
+    isValidBook(book);
+
+
+   
+
+   
+  
   
 }
 
-console.log(myLibrary)
 
 
 
@@ -66,17 +110,20 @@ const btnAbrirModal = document.querySelector("#btn-abrir-modal");
 const btnCerrarModal = document.querySelector("#btn-cerrar-modal");
 const modal = document.querySelector("#modal");
 const btnEnviarDatos = document.querySelector("#btn-enviar-datos");
+const newBookForm = document.querySelector("#newBookForm");
+const libraryTableTbody = document.querySelector("#tbody")
 
-btnAbrirModal.addEventListener("click", ()=>{
-    modal.showModal();
-})
-
-btnCerrarModal.addEventListener("click", ()=>{
-    modal.close();
-})
+let tituloInput = document.querySelector("#titulo");
+let autorInput = document.querySelector("#autor");
+let paginasInput = document.querySelector("#paginas");
+let leidoInput = document.querySelector("#leido");
 
 
-btnEnviarDatos.addEventListener("click", addBookToLibrary);
+
+
+
+
+newBookForm.addEventListener("submit", addBookToLibrary);
 
 
 
@@ -84,49 +131,93 @@ btnEnviarDatos.addEventListener("click", addBookToLibrary);
 
 const fillGrid = ()=>{
 
+    libraryTableTbody.innerHTML='';
+
+    
+    for ( let i = 0; i< myLibrary.length; i++){
+             
+              
+        let trEl = document.createElement("tr");
+
+        let tdNombre = document.createElement("td");
+        let tdAutor = document.createElement("td");
+        let tdPaginas = document.createElement("td");
+        let tdLeido = document.createElement("td");
+        let tdBtnBorrar = document.createElement("td");
+
+        tdNombre.innerHTML = `${myLibrary[i].title}`;
+        tdAutor.innerHTML = `${myLibrary[i].author}`;
+        tdPaginas.innerHTML = `${myLibrary[i].pages}`;
+        tdLeido.innerHTML = `${myLibrary[i].readText}`;
 
 
-
-    for ( let i = 0; i<= myLibrary.length; i++){
-       let card = document.createElement('div');
-       card.classList.add("card");
-       
-       let title = document.createElement('div');
-       title.classList.add("title");
-       card.appendChild(title);
+        tdBtnBorrar.classList.add("tdBtnBorrar");
+        tdBtnBorrar.setAttribute('id', 'BtnBorrar');
+        tdBtnBorrar.innerHTML = `<i class="fa-solid fa-trash"></i> `
 
 
-       let autor = document.createElement('div');
-       autor.classList.add("autor");
-       card.appendChild(autor);
-       
-       let pages = document.createElement('div');
-       pages.classList.add("pages");
-       card.appendChild(pages);
-       
-       let read = document.createElement('div');
-       read.classList.add("read");
-       card.appendChild(read);
+        trEl.appendChild(tdNombre);
+        trEl.appendChild(tdAutor);
+        trEl.appendChild(tdPaginas);
+        trEl.appendChild(tdLeido);
+        trEl.appendChild(tdBtnBorrar);
+        libraryTableTbody.appendChild(trEl)
+        
+        
+        tdBtnBorrar.addEventListener("click", (e)=>{
+            
+            console.log(e)
+            
+            
+          
+            trEl.remove();
+            
+            myLibrary.splice(i, 1);
+            console.log(myLibrary);
 
-       
+            // ELIMINAR DE LA LOGICA NO FUNCIONAAAA
+
+
+            
+        })
+
+    
+
 
         
-        title.innerHtml = myLibrary[i].title;
-        autor.innerHtml = myLibrary[i].autor;
-        pages.innerHtml = myLibrary[i].pages;
-        read.innerHTML = myLibrary[i].read;
+              
 
-
-        cardsContainer.appendChild(card);
-
-        console.log()
-
-        console.log(myLibrary)
+        
     }
-
-
+    
+    
+        
+    
 
     
 }
 
 fillGrid();
+
+
+
+
+
+// let btnsBorrar = document.querySelectorAll("#BtnBorrar");
+
+    
+// for(let i= 0; i < btnsBorrar.length; i++){
+    
+    
+//         btnsBorrar[i].addEventListener("click", (e)=>{
+//             console.log(e)
+//             myLibrary.splice(i, 1);
+//             console.log(myLibrary);
+//             fillGrid();
+            
+//         });
+    
+//     }    
+
+
+
