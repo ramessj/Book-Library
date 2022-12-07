@@ -1,35 +1,31 @@
-.botonBorrar{
-    border: none;
-    background-color: transparent;
-    transform: scale(1.1);
+.botonBorrar {
+  border: none;
+  background-color: transparent;
+  transform: scale(1.1);
 }
 
-
-.botonBorrar:hover > *{
-    transform: scale(1.1);
+.botonBorrar:hover > * {
+  transform: scale(1.1);
 }
 
-
-.btn-leido{
-    width: 45px;
+.btn-leido {
+  width: 45px;
 }
 
-.te-de{
-    
-    vertical-align: middle;
-    
+.te-de {
+  vertical-align: middle;
 }
 
-.footer{
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    font-size: 1.1rem;
+.footer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  font-size: 1.1rem;
 }
 
-.footer > p > a{
-    text-decoration: none;
-    color: black;
-    font-weight: 500;
+.footer > p > a {
+  text-decoration: none;
+  color: black;
+  font-weight: 500;
 }

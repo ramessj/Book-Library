@@ -48,27 +48,22 @@ function Book(title, author, pages, read) {
 
 let isValidBook = (book) => {
   if (book.title == `` || book.autor == `` || book.pages <= 0) {
-    let alertDiv = document.querySelector("#alerta")
-    
-    alertDiv.innerHTML = '';
+    let alertDiv = document.querySelector("#alerta");
 
-    let alerta = document.createElement("div")
+    alertDiv.innerHTML = "";
+
+    let alerta = document.createElement("div");
     alerta.innerHTML = `<div class="alert alert-danger d-flex align-items-center" role="alert">
    <div>
       Por favor verificar todos los campos
     </div>
-  </div>`
-
+  </div>`;
 
     alertDiv.append(alerta);
 
-    setTimeout(()=>{
-        alerta.remove();
+    setTimeout(() => {
+      alerta.remove();
     }, 3000);
-    
-      
-
-
   } else {
     myLibrary.push(book);
     fillGrid();
@@ -77,7 +72,6 @@ let isValidBook = (book) => {
     autorInput.value = "";
     paginasInput.value = "";
     leidoInput.checked = "";
-  
   }
 };
 
