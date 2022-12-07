@@ -1,10 +1,22 @@
+// ELEMENTOS  HTML
+
+const cardsContainer = document.querySelector("#cards-container");
+const msg = document.querySelector("#msg");
+const btnAbrirModal = document.querySelector("#btn-abrir-modal");
+const btnCerrarModal = document.querySelector("#btn-cerrar-modal");
+const modal = document.querySelector("#modal");
+const btnEnviarDatos = document.querySelector("#btn-enviar-datos");
+const newBookForm = document.querySelector("#newBookForm");
+const libraryTableTbody = document.querySelector("#tbody");
+
+let tituloInput = document.querySelector("#titulo");
+let autorInput = document.querySelector("#autor");
+let paginasInput = document.querySelector("#paginas");
+let leidoInput = document.querySelector("#leido");
+
 let myLibrary = [];
 
-
-
-
-
-
+let booksId = 1;
 
 const book1 = new Book("Harry Potter", "J. K. Rowling", 1404, true);
 
@@ -14,210 +26,148 @@ const book3 = new Book("Harry Potter 3", "J. K. Rowling", 2022, false);
 
 myLibrary.push(book1, book2, book3);
 
-
-
-
-
-
-
-function Book (title, author, pages, read) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-    this.readText = "No"; 
-    if (this.read){
-        this.readText = "Si"
-    };
-   
-
-    
-
-    this.info = ()=>{
-        return (this.title + " by " + this.author + ", " + this.pages + " pages," + this.readText )
-    };
+function Book(title, author, pages, read) {
+  this.id = booksId;
+  this.title = title;
+  this.author = author;
+  this.pages = pages;
+  this.read = read;
+  this.readText = "No";
+  this.readClass = "btn-secondary";
+  if (this.read) {
+    this.readText = "Si";
+    this.readClass = "btn-success";
   }
 
+  booksId++;
 
-
-
-
-
-
-let isValidBook =(book)=>{
-    if(book.title == `` || book.autor == `` || book.pages == 0){
-        
-    }
-    else{
-        myLibrary.push(book);
-        fillGrid();
-
-        tituloInput.value = '';
-        autorInput.value = '';
-        paginasInput.value = '';
-        leidoInput.checked = '';
-    }
-
+  this.info = () => {
+    return (this.readText = this.read ? "Si" : "No");
+  };
 }
 
-let addBookToLibrary = (e)=> {
-    console.log(e)
+let isValidBook = (book) => {
+  if (book.title == `` || book.autor == `` || book.pages <= 0) {
+    let alertDiv = document.querySelector("#alerta")
+    
+    alertDiv.innerHTML = '';
 
-    e.preventDefault();
-
-
-
-
-
-
-   
-
-   let title= tituloInput.value;
-   let autor= autorInput.value;
-   let pages= Number(paginasInput.value);
-   let read= leidoInput.checked;
+    let alerta = document.createElement("div")
+    alerta.innerHTML = `<div class="alert alert-danger d-flex align-items-center" role="alert">
+   <div>
+      Por favor verificar todos los campos
+    </div>
+  </div>`
 
 
+    alertDiv.append(alerta);
+
+    setTimeout(()=>{
+        alerta.remove();
+    }, 3000);
+    
+      
 
 
+  } else {
+    myLibrary.push(book);
+    fillGrid();
 
-    if(title == `` || autorInput == `` || paginasInput == 0){
-
-    }
-
-   let book = new Book(title, autor, pages, read);
-
-    isValidBook(book);
-
-
-   
-
-   
+    tituloInput.value = "";
+    autorInput.value = "";
+    paginasInput.value = "";
+    leidoInput.checked = "";
   
-  
-}
+  }
+};
 
+let addBookToLibrary = (e) => {
+  console.log(e);
 
+  e.preventDefault();
 
+  let title = tituloInput.value;
+  let autor = autorInput.value;
+  let pages = Number(paginasInput.value);
+  let read = leidoInput.checked;
 
+  let book = new Book(title, autor, pages, read);
 
-// ELEMENTOS  HTML
-
-
-const cardsContainer = document.querySelector("#cards-container")
-const msg = document.querySelector("#msg")
-const btnAbrirModal = document.querySelector("#btn-abrir-modal");
-const btnCerrarModal = document.querySelector("#btn-cerrar-modal");
-const modal = document.querySelector("#modal");
-const btnEnviarDatos = document.querySelector("#btn-enviar-datos");
-const newBookForm = document.querySelector("#newBookForm");
-const libraryTableTbody = document.querySelector("#tbody")
-
-let tituloInput = document.querySelector("#titulo");
-let autorInput = document.querySelector("#autor");
-let paginasInput = document.querySelector("#paginas");
-let leidoInput = document.querySelector("#leido");
-
-
-
-
-
+  isValidBook(book);
+};
 
 newBookForm.addEventListener("submit", addBookToLibrary);
 
+const fillGrid = () => {
+  libraryTableTbody.innerHTML = "";
 
+  for (let i = 0; i < myLibrary.length; i++) {
+    let trEl = document.createElement("tr");
 
+    let tdNombre = document.createElement("td");
+    tdNombre.classList.add("te-de");
+    let tdAutor = document.createElement("td");
+    tdAutor.classList.add("te-de");
+    let tdPaginas = document.createElement("td");
+    tdPaginas.classList.add("te-de");
+    let tdLeido = document.createElement("td");
+    tdLeido.classList.add("te-de");
+    let tdBtnBorrar = document.createElement("td");
+    tdBtnBorrar.classList.add("te-de");
 
+    tdNombre.innerHTML = `${myLibrary[i].title}`;
+    tdAutor.innerHTML = `${myLibrary[i].author}`;
+    tdPaginas.innerHTML = `${myLibrary[i].pages}`;
+    // tdLeido.innerHTML = `${myLibrary[i].readText}`;
 
-const fillGrid = ()=>{
+    let btnBorrar = document.createElement("button");
+    btnBorrar.setAttribute("id", myLibrary[i].id);
+    btnBorrar.innerHTML = `<i id="${myLibrary[i].id}" class="fa-solid fa-trash"></i> `;
+    btnBorrar.classList.add("botonBorrar");
 
-    libraryTableTbody.innerHTML='';
+    tdBtnBorrar.append(btnBorrar);
 
-    
-    for ( let i = 0; i< myLibrary.length; i++){
-             
-              
-        let trEl = document.createElement("tr");
+    let btnEditar = document.createElement("button");
+    btnEditar.setAttribute("id", myLibrary[i].id);
+    btnEditar.innerHTML = myLibrary[i].readText;
+    btnEditar.classList.add("btn");
+    btnEditar.classList.add("btn-leido");
+    btnEditar.classList.add(myLibrary[i].readClass);
 
-        let tdNombre = document.createElement("td");
-        let tdAutor = document.createElement("td");
-        let tdPaginas = document.createElement("td");
-        let tdLeido = document.createElement("td");
-        let tdBtnBorrar = document.createElement("td");
+    tdLeido.append(btnEditar);
 
-        tdNombre.innerHTML = `${myLibrary[i].title}`;
-        tdAutor.innerHTML = `${myLibrary[i].author}`;
-        tdPaginas.innerHTML = `${myLibrary[i].pages}`;
-        tdLeido.innerHTML = `${myLibrary[i].readText}`;
+    trEl.appendChild(tdNombre);
+    trEl.appendChild(tdAutor);
+    trEl.appendChild(tdPaginas);
+    trEl.appendChild(tdLeido);
+    trEl.appendChild(tdBtnBorrar);
+    libraryTableTbody.appendChild(trEl);
 
+    btnBorrar.addEventListener("click", (e) => {
+      console.log(e.target.id);
+      const resp = window.confirm("¿Estas seguro?");
 
-        tdBtnBorrar.classList.add("tdBtnBorrar");
-        tdBtnBorrar.setAttribute('id', 'BtnBorrar');
-        tdBtnBorrar.innerHTML = `<i class="fa-solid fa-trash"></i> `
+      if (resp) {
+        myLibrary = myLibrary.filter((book) => book.id != e.target.id);
+        trEl.remove();
+        console.log(myLibrary);
+      }
+    });
 
-
-        trEl.appendChild(tdNombre);
-        trEl.appendChild(tdAutor);
-        trEl.appendChild(tdPaginas);
-        trEl.appendChild(tdLeido);
-        trEl.appendChild(tdBtnBorrar);
-        libraryTableTbody.appendChild(trEl)
-        
-        
-        tdBtnBorrar.addEventListener("click", (e)=>{
-            
-            console.log(e)
-            
-            
-          
-            trEl.remove();
-            
-            myLibrary.splice(i, 1);
-            console.log(myLibrary);
-
-            // ELIMINAR DE LA LOGICA NO FUNCIONAAAA
-
-
-            
-        })
-
-    
-
-
-        
-              
-
-        
-    }
-    
-    
-        
-    
-
-    
-}
+    btnEditar.addEventListener("click", (e) => {
+      myLibrary[i].read = !myLibrary[i].read;
+      e.target.innerHTML = myLibrary[i].info();
+      if (myLibrary[i].read) {
+        e.target.classList.remove("btn-success");
+        e.target.classList.remove("btn-secondary");
+        e.target.classList.add("btn-success");
+      } else {
+        e.target.classList.remove("btn-success");
+        e.target.classList.remove("btn-secondary");
+        e.target.classList.add("btn-secondary");
+      }
+    });
+  }
+};
 
 fillGrid();
-
-
-
-
-
-// let btnsBorrar = document.querySelectorAll("#BtnBorrar");
-
-    
-// for(let i= 0; i < btnsBorrar.length; i++){
-    
-    
-//         btnsBorrar[i].addEventListener("click", (e)=>{
-//             console.log(e)
-//             myLibrary.splice(i, 1);
-//             console.log(myLibrary);
-//             fillGrid();
-            
-//         });
-    
-//     }    
-
-
-

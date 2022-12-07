@@ -1,14 +1,21 @@
-.tdBtnBorrar{
-    cursor: pointer;
-}
-
-.tdBtnBorrar:hover > *{
-    transform: scale(1.15);
-}
-
-.fa-trash:hover {
-    cursor: pointer;
+.botonBorrar{
+    border: none;
+    background-color: transparent;
+    transform: scale(1.1);
 }
 
 
+.botonBorrar:hover > *{
+    transform: scale(1.1);
+}
 
+
+.btn-leido{
+    width: 45px;
+}
+
+.te-de{
+    
+    vertical-align: middle;
+    
+}
