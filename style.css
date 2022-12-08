@@ -22,10 +22,21 @@
   right: 0;
   left: 0;
   font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .8rem;
+  color:rgb(54, 54, 54)
 }
 
 .footer > p > a {
   text-decoration: none;
   color: black;
   font-weight: 500;
+}
+
+@media (min-width: 600px){
+  .footer{
+    font-size: 1.2rem
+  }
 }
