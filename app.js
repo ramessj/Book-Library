@@ -84,8 +84,6 @@ let isValidBook = (book) => {
 };
 
 let addBookToLibrary = (e) => {
-  console.log(e);
-
   e.preventDefault();
 
   let title = tituloInput.value;
@@ -146,13 +144,11 @@ const fillGrid = () => {
     libraryTableTbody.appendChild(trEl);
 
     btnBorrar.addEventListener("click", (e) => {
-      console.log(e.target.id);
       const resp = window.confirm("¿Estas seguro?");
 
       if (resp) {
         myLibrary = myLibrary.filter((book) => book.id != e.target.id);
         trEl.remove();
-        console.log(myLibrary);
       }
     });
 
