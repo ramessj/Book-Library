@@ -32,18 +32,26 @@ function Book(title, author, pages, read) {
   this.author = author;
   this.pages = pages;
   this.read = read;
-  this.readText = "No";
+
   this.readClass = "btn-secondary";
+
   if (this.read) {
-    this.readText = "Si";
     this.readClass = "btn-success";
   }
 
-  booksId++;
-
-  this.info = () => {
-    return (this.readText = this.read ? "Si" : "No");
+  this.readText = () => {
+    if (this.read) {
+      return "Si";
+    } else {
+      return "No";
+    }
   };
+
+  this.toggleRead = () => {
+    this.read = !this.read;
+  };
+
+  booksId++;
 }
 
 let isValidBook = (book) => {
@@ -123,7 +131,7 @@ const fillGrid = () => {
 
     let btnEditar = document.createElement("button");
     btnEditar.setAttribute("id", myLibrary[i].id);
-    btnEditar.innerHTML = myLibrary[i].readText;
+    btnEditar.innerHTML = myLibrary[i].readText();
     btnEditar.classList.add("btn");
     btnEditar.classList.add("btn-leido");
     btnEditar.classList.add(myLibrary[i].readClass);
@@ -149,17 +157,23 @@ const fillGrid = () => {
     });
 
     btnEditar.addEventListener("click", (e) => {
-      myLibrary[i].read = !myLibrary[i].read;
-      e.target.innerHTML = myLibrary[i].info();
-      if (myLibrary[i].read) {
-        e.target.classList.remove("btn-success");
-        e.target.classList.remove("btn-secondary");
-        e.target.classList.add("btn-success");
-      } else {
-        e.target.classList.remove("btn-success");
-        e.target.classList.remove("btn-secondary");
-        e.target.classList.add("btn-secondary");
-      }
+      myLibrary.find((book) => {
+        if (book.id == e.target.id) {
+          book.toggleRead();
+
+          if (book.read) {
+            e.target.classList.remove("btn-success");
+            e.target.classList.remove("btn-secondary");
+            e.target.classList.add("btn-success");
+            e.target.innerHTML = book.readText();
+          } else {
+            e.target.classList.remove("btn-success");
+            e.target.classList.remove("btn-secondary");
+            e.target.classList.add("btn-secondary");
+            e.target.innerHTML = book.readText();
+          }
+        }
+      });
     });
   }
 };
