@@ -18,6 +18,38 @@ let myLibrary = [];
 
 let booksId = 1;
 
+//Clase book con su constructor
+
+class Book {
+  constructor(title, author, pages, read){
+  this.id = booksId;
+  this.title = title;
+  this.author = author;
+  this.pages = pages;
+  this.read = read;
+  this.readClass = "btn-secondary";
+  booksId++;
+  if (this.read) {
+    this.readClass = "btn-success";
+  }
+}
+
+  readText = () => {
+    if (this.read) {
+      return "Si";
+    } else {
+      return "No";
+    }
+  };
+
+  toggleRead = () => {
+    this.read = !this.read;
+  };  
+}
+
+
+//Example books
+
 const book1 = new Book("Harry Potter", "J. K. Rowling", 1404, true);
 
 const book2 = new Book("Harry Potter 2", "J. K. Rowling", 1124, true);
@@ -26,33 +58,25 @@ const book3 = new Book("Harry Potter 3", "J. K. Rowling", 2022, false);
 
 myLibrary.push(book1, book2, book3);
 
-function Book(title, author, pages, read) {
-  this.id = booksId;
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
 
-  this.readClass = "btn-secondary";
 
-  if (this.read) {
-    this.readClass = "btn-success";
-  }
 
-  this.readText = () => {
-    if (this.read) {
-      return "Si";
-    } else {
-      return "No";
-    }
-  };
 
-  this.toggleRead = () => {
-    this.read = !this.read;
-  };
 
-  booksId++;
-}
+//Añadir libro a la biblioteca
+
+let addBookToLibrary = (e) => {
+  e.preventDefault();
+
+  let title = tituloInput.value;
+  let autor = autorInput.value;
+  let pages = Number(paginasInput.value);
+  let read = leidoInput.checked;
+
+  let book = new Book(title, autor, pages, read);
+
+  isValidBook(book);
+};
 
 let isValidBook = (book) => {
   if (book.title == `` || book.autor == `` || book.pages <= 0) {
@@ -82,22 +106,12 @@ let isValidBook = (book) => {
     leidoInput.checked = "";
   }
 };
-
-let addBookToLibrary = (e) => {
-  e.preventDefault();
-
-  let title = tituloInput.value;
-  let autor = autorInput.value;
-  let pages = Number(paginasInput.value);
-  let read = leidoInput.checked;
-
-  let book = new Book(title, autor, pages, read);
-
-  isValidBook(book);
-};
-
 newBookForm.addEventListener("submit", addBookToLibrary);
 
+
+
+
+// Rellenar la grilla
 const fillGrid = () => {
   libraryTableTbody.innerHTML = "";
 
